@@ -41,6 +41,7 @@ GSAP with ScrollTrigger and three.js are provided by the platform through hooks,
 - The server markup must be a complete, visible layout, and the animation only enhances it. Set a starting state such as `opacity: 0` from the animation (`gsap.from`), never in the markup.
 - Pin an inner wrapper that is always rendered (`pin: ref.current`), never the component's root element and never a conditionally rendered node.
 - Honour `reducedMotion`, clean up every listener, observer and WebGL resource, and keep one WebGL canvas per page. A navbar or footer renders on every page: a short GSAP effect is fine there, three.js is not.
+- Never put a three.js scene in a navbar or footer, even when the user asks for one and even with mitigations. Explain that it would load WebGL on every page, and offer a 3D section on the page where it matters or a light GSAP effect in the footer instead.
 - A save refused with `TEMPLATE_FEATURE_NOT_AVAILABLE` means the site's website version cannot render that library. Tell the owner to upgrade the website version in the dashboard. Do not imitate the library with hand-written code.
 - For smooth anchor scrolling and scroll progress use `useSiteScroll`, which follows the site's smooth scroll setting.
 

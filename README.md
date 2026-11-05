@@ -50,9 +50,21 @@ When Claude is done with a page, open the Marcapony dashboard, review the page a
 
 ## Data and privacy
 
-The plugin contains only instructions for Claude; it ships no scripts and no executables. It connects only to `mcp.marcapony.com`, which acts on your Marcapony account through the Marcapony API, and sends it your requests and the content Claude reads or writes there. The `custom-code` skill works entirely through that connector.
+The skills contain only instructions for Claude, and the plugin runs no scripts or executables of its own when you use it. The `evals/` folder is the plugin's test suite; it is not loaded when you use the plugin. It connects only to `mcp.marcapony.com`, which acts on your Marcapony account through the Marcapony API, and sends it your requests and the content Claude reads or writes there. The `custom-code` skill works entirely through that connector.
 
 The `app-development` skill is used in Claude Code, in a project folder you choose. There Claude reads and edits the app's files and runs the commands of the Marcapony developer kit: `npx create-marcapony-app`, `bun install` (which downloads the app's dependencies from the npm registry), `bun run dev`, `bun run typecheck` and `bun run deploy`. The deploy uploads the built app to Marcapony. The skill asks you to run the linking step yourself, and Claude never reads, prints or commits the app key that linking writes to `.dev.vars`. Claude Code's permission settings decide which of these commands need your approval. Marcapony's handling of your data is described in the [Privacy Policy](https://app.marcapony.com/privacy-policy) and the [Terms of Service](https://app.marcapony.com/terms-of-service).
+
+## Tests
+
+`evals/` holds the plugin's eval suite for [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals). Each case gives Claude a request and checks what the skills make it do: which Marcapony tools it calls and in what order, what it writes, and what it tells the user. The Marcapony connector is answered by the mocks in `evals/mocks/marcapony`, so a run never reaches a real account. The suite runs on every pull request that changes the skills, the manifest or the suite.
+
+To run it yourself:
+
+```sh
+claude plugin eval . --scaffold --allow-tools Write Edit
+```
+
+`--scaffold` builds the sample app project the app cases work in, and `Write` and `Edit` let Claude change that project inside the run's own workspace.
 
 ## Support
 

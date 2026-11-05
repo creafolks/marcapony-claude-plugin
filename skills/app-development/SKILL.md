@@ -1,6 +1,6 @@
 ---
 name: app-development
-description: Builds, changes and deploys a Marcapony app, a small web app with its own backend that Marcapony hosts and connects to the business's account, using create-marcapony-app, the marcapony CLI and marcapony-sdk. Covers scaffolding from a template (blank, booking, shop, team tool), linking the project to the app, calling the Marcapony API from the app's server, signed-in customers and team members, test mode and deploying. Use when the user wants a custom tool, portal page, booking flow, shop flow or internal team tool on Marcapony that a section cannot do, or works in a project that has a marcapony.json. Needs a local project folder and a terminal, so it applies in Claude Code, not in a chat without file access.
+description: Builds, changes and deploys a Marcapony app, a small web app with its own backend that Marcapony hosts and connects to the business's account, using create-marcapony-app, the marcapony CLI and marcapony-sdk. Covers scaffolding from a template (blank, booking, shop, team tool), linking the project to the app, calling the Marcapony API from the app's server, signed-in customers and team members, test mode and deploying. Use when the user wants a custom tool, portal page, booking flow, shop flow or internal team tool on Marcapony that a section cannot do, or works in a project that has a marcapony.json, including when its API key or .dev.vars seems wrong. Load it before opening any file in such a project: .dev.vars holds the app's secret key and must never be opened. Needs a local project folder and a terminal, so it applies in Claude Code, not in a chat without file access.
 ---
 
 # Building a Marcapony app
@@ -35,7 +35,7 @@ The packages are `create-marcapony-app` (scaffolder), `marcapony` (CLI) and `mar
 
 Linking exchanges a one-time pairing code from the app's page in the dashboard for a key to the app's **test** environment, writes it into `.dev.vars` (and adds that file to `.gitignore`), fills `marcapony.json` and writes `AGENTS.md`.
 
-Ask the user to generate the pairing code and run the link step themselves, for example `bun run link -- --code mpl_…`. Never ask for the key, never open, print or log `.dev.vars`, never commit it, and never put the key in browser code: the SDK refuses to run with a secret key in a browser. If a key leaks, the user revokes it in the dashboard and links again.
+Ask the user to generate the pairing code and run the link step themselves, for example `bun run link -- --code mpl_…`. Never ask for the key, never open, read, grep, print or log `.dev.vars`, even to check whether the key looks right (a 401 is fixed by linking again, not by inspecting the key), never commit it, and never put the key in browser code: the SDK refuses to run with a secret key in a browser. If a key leaks, the user revokes it in the dashboard and links again.
 
 ## 3. Build
 

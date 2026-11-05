@@ -2,7 +2,7 @@
   "name": "marcapony",
   "displayName": "Marcapony",
   "icon": "./icon.png",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Build your Marcapony website from Claude: custom code sections with animation and 3D, navbars and footers, and apps that Marcapony hosts. Page sections are saved as drafts for you to publish.",
   "author": {
     "name": "Creafolks",
